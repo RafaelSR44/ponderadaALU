@@ -746,6 +746,10 @@
           <string>Label</string>
           <string>S</string>
         </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
       </elementAttributes>
       <pos x="660" y="520"/>
     </visualElement>
