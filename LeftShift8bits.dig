@@ -236,6 +236,14 @@
           <string>Label</string>
           <string>ALS</string>
         </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>dec</intFormat>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
       </elementAttributes>
       <pos x="860" y="120"/>
     </visualElement>
