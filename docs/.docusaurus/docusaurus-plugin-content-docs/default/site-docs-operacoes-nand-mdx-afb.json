@@ -1,0 +1,29 @@
+{
+  "id": "operacoes/nand",
+  "title": "NAND",
+  "description": "Porta NAND de 8 bits — a porta universal da lógica digital.",
+  "source": "@site/docs/operacoes/nand.mdx",
+  "sourceDirName": "operacoes",
+  "slug": "/operacoes/nand",
+  "permalink": "/ponderadaALU/docs/operacoes/nand",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "id": "nand",
+    "title": "NAND",
+    "sidebar_position": 6,
+    "description": "Porta NAND de 8 bits — a porta universal da lógica digital."
+  },
+  "sidebar": "aluSidebar",
+  "previous": {
+    "title": "Shift Lógico",
+    "permalink": "/ponderadaALU/docs/operacoes/shift"
+  },
+  "next": {
+    "title": "XOR",
+    "permalink": "/ponderadaALU/docs/operacoes/xor"
+  }
+}

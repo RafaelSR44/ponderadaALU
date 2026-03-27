@@ -1,0 +1,25 @@
+{
+  "id": "intro",
+  "title": "Visão Geral da ALU",
+  "description": "O que é uma ALU, seu papel no processador e a estrutura da ALU de 8 bits implementada neste projeto.",
+  "source": "@site/docs/intro.mdx",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/ponderadaALU/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "id": "intro",
+    "title": "Visão Geral da ALU",
+    "sidebar_position": 1,
+    "description": "O que é uma ALU, seu papel no processador e a estrutura da ALU de 8 bits implementada neste projeto."
+  },
+  "sidebar": "aluSidebar",
+  "next": {
+    "title": "Soma",
+    "permalink": "/ponderadaALU/docs/operacoes/soma"
+  }
+}

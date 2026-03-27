@@ -1,0 +1,315 @@
+{
+  "entrypoints": [
+    "main"
+  ],
+  "origins": {
+    "237": [
+      237
+    ],
+    "285": [
+      61,
+      401,
+      869,
+      285
+    ],
+    "17896441": [
+      285,
+      869,
+      401
+    ],
+    "93033318": [
+      1
+    ],
+    "main": [
+      354,
+      869,
+      792
+    ],
+    "runtime~main": [
+      792,
+      869,
+      354
+    ],
+    "06753dc3": [
+      230
+    ],
+    "1df93b7f": [
+      583
+    ],
+    "1f391b9e": [
+      285,
+      869,
+      61
+    ],
+    "393be207": [
+      134
+    ],
+    "4d1f8169": [
+      676
+    ],
+    "5e95c892": [
+      647
+    ],
+    "65ef7563": [
+      728
+    ],
+    "6ae7935f": [
+      569
+    ],
+    "88fff199": [
+      826
+    ],
+    "8cbf4dc1": [
+      348
+    ],
+    "a7456010": [
+      235
+    ],
+    "a7bd4aaa": [
+      98
+    ],
+    "a94703ab": [
+      869,
+      48
+    ],
+    "aba21aa0": [
+      742
+    ],
+    "afbd4673": [
+      288
+    ],
+    "bae7a762": [
+      768
+    ],
+    "f8409a7e": [
+      903
+    ],
+    "styles": [
+      48,
+      61,
+      285,
+      354,
+      401,
+      792,
+      869
+    ]
+  },
+  "assets": {
+    "1": {
+      "js": [
+        {
+          "file": "assets/js/93033318.8dc3ed1a.js",
+          "hash": "37d588a982972e15",
+          "publicPath": "/ponderadaALU/assets/js/93033318.8dc3ed1a.js"
+        }
+      ]
+    },
+    "48": {
+      "js": [
+        {
+          "file": "assets/js/a94703ab.29706000.js",
+          "hash": "5ef75a26fd62514f",
+          "publicPath": "/ponderadaALU/assets/js/a94703ab.29706000.js"
+        }
+      ]
+    },
+    "61": {
+      "js": [
+        {
+          "file": "assets/js/1f391b9e.d5afef97.js",
+          "hash": "50fed2d9da77c184",
+          "publicPath": "/ponderadaALU/assets/js/1f391b9e.d5afef97.js"
+        }
+      ]
+    },
+    "98": {
+      "js": [
+        {
+          "file": "assets/js/a7bd4aaa.e1d46990.js",
+          "hash": "c3f5ec7a7eb9fcea",
+          "publicPath": "/ponderadaALU/assets/js/a7bd4aaa.e1d46990.js"
+        }
+      ]
+    },
+    "134": {
+      "js": [
+        {
+          "file": "assets/js/393be207.9dc41b5a.js",
+          "hash": "f10adde63efca943",
+          "publicPath": "/ponderadaALU/assets/js/393be207.9dc41b5a.js"
+        }
+      ]
+    },
+    "230": {
+      "js": [
+        {
+          "file": "assets/js/06753dc3.43beb2ce.js",
+          "hash": "360122daf12946f0",
+          "publicPath": "/ponderadaALU/assets/js/06753dc3.43beb2ce.js"
+        }
+      ]
+    },
+    "235": {
+      "js": [
+        {
+          "file": "assets/js/a7456010.0c87bb65.js",
+          "hash": "47f857f9213daa1f",
+          "publicPath": "/ponderadaALU/assets/js/a7456010.0c87bb65.js"
+        }
+      ]
+    },
+    "237": {
+      "js": [
+        {
+          "file": "assets/js/237.aa0501bb.js",
+          "hash": "488e7930f28e1ad0",
+          "publicPath": "/ponderadaALU/assets/js/237.aa0501bb.js"
+        }
+      ]
+    },
+    "285": {
+      "js": [
+        {
+          "file": "assets/js/285.c4d137e0.js",
+          "hash": "d11473e4e168810e",
+          "publicPath": "/ponderadaALU/assets/js/285.c4d137e0.js"
+        }
+      ]
+    },
+    "288": {
+      "js": [
+        {
+          "file": "assets/js/afbd4673.84cee7af.js",
+          "hash": "a7f3979d1f6e3f1c",
+          "publicPath": "/ponderadaALU/assets/js/afbd4673.84cee7af.js"
+        }
+      ]
+    },
+    "348": {
+      "js": [
+        {
+          "file": "assets/js/8cbf4dc1.c44c8201.js",
+          "hash": "0f045805397764c6",
+          "publicPath": "/ponderadaALU/assets/js/8cbf4dc1.c44c8201.js"
+        }
+      ]
+    },
+    "354": {
+      "js": [
+        {
+          "file": "assets/js/runtime~main.9aaf02e6.js",
+          "hash": "568a71c2c8a71795",
+          "publicPath": "/ponderadaALU/assets/js/runtime~main.9aaf02e6.js"
+        }
+      ]
+    },
+    "401": {
+      "js": [
+        {
+          "file": "assets/js/17896441.94e58b67.js",
+          "hash": "b99c061332b0f964",
+          "publicPath": "/ponderadaALU/assets/js/17896441.94e58b67.js"
+        }
+      ]
+    },
+    "569": {
+      "js": [
+        {
+          "file": "assets/js/6ae7935f.ad94a25e.js",
+          "hash": "f3187a33e15509ef",
+          "publicPath": "/ponderadaALU/assets/js/6ae7935f.ad94a25e.js"
+        }
+      ]
+    },
+    "583": {
+      "js": [
+        {
+          "file": "assets/js/1df93b7f.10bbe365.js",
+          "hash": "272efc2afa5d14bd",
+          "publicPath": "/ponderadaALU/assets/js/1df93b7f.10bbe365.js"
+        }
+      ]
+    },
+    "647": {
+      "js": [
+        {
+          "file": "assets/js/5e95c892.c695680e.js",
+          "hash": "dda0fee749858527",
+          "publicPath": "/ponderadaALU/assets/js/5e95c892.c695680e.js"
+        }
+      ]
+    },
+    "676": {
+      "js": [
+        {
+          "file": "assets/js/4d1f8169.a5ba7652.js",
+          "hash": "ef2f8c61f03761e7",
+          "publicPath": "/ponderadaALU/assets/js/4d1f8169.a5ba7652.js"
+        }
+      ]
+    },
+    "728": {
+      "js": [
+        {
+          "file": "assets/js/65ef7563.ea260885.js",
+          "hash": "ae1f6724bb57f2bf",
+          "publicPath": "/ponderadaALU/assets/js/65ef7563.ea260885.js"
+        }
+      ]
+    },
+    "742": {
+      "js": [
+        {
+          "file": "assets/js/aba21aa0.db338441.js",
+          "hash": "e6b39663be86dbfb",
+          "publicPath": "/ponderadaALU/assets/js/aba21aa0.db338441.js"
+        }
+      ]
+    },
+    "768": {
+      "js": [
+        {
+          "file": "assets/js/bae7a762.b57723a7.js",
+          "hash": "3afd7cf7449e149c",
+          "publicPath": "/ponderadaALU/assets/js/bae7a762.b57723a7.js"
+        }
+      ]
+    },
+    "792": {
+      "js": [
+        {
+          "file": "assets/js/main.627adc33.js",
+          "hash": "18dc8fc2240268e3",
+          "publicPath": "/ponderadaALU/assets/js/main.627adc33.js"
+        }
+      ]
+    },
+    "826": {
+      "js": [
+        {
+          "file": "assets/js/88fff199.7f3a9a51.js",
+          "hash": "9a31357820918f04",
+          "publicPath": "/ponderadaALU/assets/js/88fff199.7f3a9a51.js"
+        }
+      ]
+    },
+    "869": {
+      "css": [
+        {
+          "file": "assets/css/styles.7601b61d.css",
+          "hash": "ae711d73631025a1",
+          "publicPath": "/ponderadaALU/assets/css/styles.7601b61d.css"
+        }
+      ]
+    },
+    "903": {
+      "js": [
+        {
+          "file": "assets/js/f8409a7e.428c89ee.js",
+          "hash": "208feb4543484dda",
+          "publicPath": "/ponderadaALU/assets/js/f8409a7e.428c89ee.js"
+        }
+      ]
+    }
+  }
+}

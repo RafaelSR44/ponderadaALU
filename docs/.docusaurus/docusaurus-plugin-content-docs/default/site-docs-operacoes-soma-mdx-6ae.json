@@ -1,0 +1,29 @@
+{
+  "id": "operacoes/soma",
+  "title": "Soma",
+  "description": "Soma de 8 bits com somador completo e propagação de carry (ripple carry adder).",
+  "source": "@site/docs/operacoes/soma.mdx",
+  "sourceDirName": "operacoes",
+  "slug": "/operacoes/soma",
+  "permalink": "/ponderadaALU/docs/operacoes/soma",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "id": "soma",
+    "title": "Soma",
+    "sidebar_position": 1,
+    "description": "Soma de 8 bits com somador completo e propagação de carry (ripple carry adder)."
+  },
+  "sidebar": "aluSidebar",
+  "previous": {
+    "title": "🔧 Visão Geral da ALU",
+    "permalink": "/ponderadaALU/docs/intro"
+  },
+  "next": {
+    "title": "Subtração",
+    "permalink": "/ponderadaALU/docs/operacoes/subtracao"
+  }
+}

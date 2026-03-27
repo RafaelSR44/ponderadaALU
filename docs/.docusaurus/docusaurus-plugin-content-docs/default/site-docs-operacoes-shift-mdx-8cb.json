@@ -1,0 +1,29 @@
+{
+  "id": "operacoes/shift",
+  "title": "Shift Lógico",
+  "description": "Deslocamento lógico para esquerda (×2) e direita (÷2) de 8 bits.",
+  "source": "@site/docs/operacoes/shift.mdx",
+  "sourceDirName": "operacoes",
+  "slug": "/operacoes/shift",
+  "permalink": "/ponderadaALU/docs/operacoes/shift",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "id": "shift",
+    "title": "Shift Lógico",
+    "sidebar_position": 5,
+    "description": "Deslocamento lógico para esquerda (×2) e direita (÷2) de 8 bits."
+  },
+  "sidebar": "aluSidebar",
+  "previous": {
+    "title": "Divisão",
+    "permalink": "/ponderadaALU/docs/operacoes/divisao"
+  },
+  "next": {
+    "title": "NAND",
+    "permalink": "/ponderadaALU/docs/operacoes/nand"
+  }
+}

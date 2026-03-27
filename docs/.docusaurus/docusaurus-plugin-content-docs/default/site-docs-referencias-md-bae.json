@@ -1,0 +1,25 @@
+{
+  "id": "referencias",
+  "title": "Referências",
+  "description": "Links e recursos utilizados na construção desta documentação e do projeto ALU 8-bit.",
+  "source": "@site/docs/referencias.md",
+  "sourceDirName": ".",
+  "slug": "/referencias",
+  "permalink": "/ponderadaALU/docs/referencias",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 10,
+  "frontMatter": {
+    "id": "referencias",
+    "title": "Referências",
+    "sidebar_position": 10,
+    "description": "Links e recursos utilizados na construção desta documentação e do projeto ALU 8-bit."
+  },
+  "sidebar": "aluSidebar",
+  "previous": {
+    "title": "XOR",
+    "permalink": "/ponderadaALU/docs/operacoes/xor"
+  }
+}

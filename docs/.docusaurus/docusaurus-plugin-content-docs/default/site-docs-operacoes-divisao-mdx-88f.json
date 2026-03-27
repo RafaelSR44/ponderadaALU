@@ -1,0 +1,29 @@
+{
+  "id": "operacoes/divisao",
+  "title": "Divisão",
+  "description": "Divisão de 8 bits usando o algoritmo de divisão com restauração e subtratores de 1 bit.",
+  "source": "@site/docs/operacoes/divisao.mdx",
+  "sourceDirName": "operacoes",
+  "slug": "/operacoes/divisao",
+  "permalink": "/ponderadaALU/docs/operacoes/divisao",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "id": "divisao",
+    "title": "Divisão",
+    "sidebar_position": 4,
+    "description": "Divisão de 8 bits usando o algoritmo de divisão com restauração e subtratores de 1 bit."
+  },
+  "sidebar": "aluSidebar",
+  "previous": {
+    "title": "Multiplicação",
+    "permalink": "/ponderadaALU/docs/operacoes/multiplicacao"
+  },
+  "next": {
+    "title": "Shift Lógico",
+    "permalink": "/ponderadaALU/docs/operacoes/shift"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "/ponderadaALU/markdown-page-f9f": {
+    "__comp": "1f391b9e",
+    "__context": {
+      "plugin": "a7456010"
+    },
+    "content": "393be207"
+  },
+  "/ponderadaALU/docs-15f": {
+    "__comp": "5e95c892",
+    "__context": {
+      "plugin": "aba21aa0"
+    }
+  },
+  "/ponderadaALU/docs-858": {
+    "__comp": "a7bd4aaa",
+    "__props": "93033318"
+  },
+  "/ponderadaALU/docs-051": {
+    "__comp": "a94703ab"
+  },
+  "/ponderadaALU/docs/intro-0a7": {
+    "__comp": "17896441",
+    "content": "f8409a7e"
+  },
+  "/ponderadaALU/docs/operacoes/divisao-8ab": {
+    "__comp": "17896441",
+    "content": "88fff199"
+  },
+  "/ponderadaALU/docs/operacoes/multiplicacao-f02": {
+    "__comp": "17896441",
+    "content": "4d1f8169"
+  },
+  "/ponderadaALU/docs/operacoes/nand-c52": {
+    "__comp": "17896441",
+    "content": "afbd4673"
+  },
+  "/ponderadaALU/docs/operacoes/shift-4e1": {
+    "__comp": "17896441",
+    "content": "8cbf4dc1"
+  },
+  "/ponderadaALU/docs/operacoes/soma-6e2": {
+    "__comp": "17896441",
+    "content": "6ae7935f"
+  },
+  "/ponderadaALU/docs/operacoes/subtracao-40c": {
+    "__comp": "17896441",
+    "content": "65ef7563"
+  },
+  "/ponderadaALU/docs/operacoes/xor-417": {
+    "__comp": "17896441",
+    "content": "06753dc3"
+  },
+  "/ponderadaALU/docs/referencias-b5b": {
+    "__comp": "17896441",
+    "content": "bae7a762"
+  },
+  "/ponderadaALU/-841": {
+    "__comp": "1df93b7f",
+    "__context": {
+      "plugin": "a7456010"
+    },
+    "config": "5e9f5e1a"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "operacoes/multiplicacao",
+  "title": "Multiplicação",
+  "description": "Multiplicador array de 8 bits com portas AND, meio-somadores e somadores completos.",
+  "source": "@site/docs/operacoes/multiplicacao.mdx",
+  "sourceDirName": "operacoes",
+  "slug": "/operacoes/multiplicacao",
+  "permalink": "/ponderadaALU/docs/operacoes/multiplicacao",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "id": "multiplicacao",
+    "title": "Multiplicação",
+    "sidebar_position": 3,
+    "description": "Multiplicador array de 8 bits com portas AND, meio-somadores e somadores completos."
+  },
+  "sidebar": "aluSidebar",
+  "previous": {
+    "title": "Subtração",
+    "permalink": "/ponderadaALU/docs/operacoes/subtracao"
+  },
+  "next": {
+    "title": "Divisão",
+    "permalink": "/ponderadaALU/docs/operacoes/divisao"
+  }
+}

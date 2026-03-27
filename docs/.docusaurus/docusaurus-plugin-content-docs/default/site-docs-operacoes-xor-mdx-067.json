@@ -1,0 +1,29 @@
+{
+  "id": "operacoes/xor",
+  "title": "XOR",
+  "description": "Porta XOR (OU Exclusivo) de 8 bits — paridade, comparação e criptografia.",
+  "source": "@site/docs/operacoes/xor.mdx",
+  "sourceDirName": "operacoes",
+  "slug": "/operacoes/xor",
+  "permalink": "/ponderadaALU/docs/operacoes/xor",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 7,
+  "frontMatter": {
+    "id": "xor",
+    "title": "XOR",
+    "sidebar_position": 7,
+    "description": "Porta XOR (OU Exclusivo) de 8 bits — paridade, comparação e criptografia."
+  },
+  "sidebar": "aluSidebar",
+  "previous": {
+    "title": "NAND",
+    "permalink": "/ponderadaALU/docs/operacoes/nand"
+  },
+  "next": {
+    "title": "📚 Referências",
+    "permalink": "/ponderadaALU/docs/referencias"
+  }
+}

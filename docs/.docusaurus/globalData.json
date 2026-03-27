@@ -1,0 +1,73 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/ponderadaALU/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/ponderadaALU/docs",
+          "mainDocId": "intro",
+          "docs": [
+            {
+              "id": "intro",
+              "path": "/ponderadaALU/docs/intro",
+              "sidebar": "aluSidebar"
+            },
+            {
+              "id": "operacoes/divisao",
+              "path": "/ponderadaALU/docs/operacoes/divisao",
+              "sidebar": "aluSidebar"
+            },
+            {
+              "id": "operacoes/multiplicacao",
+              "path": "/ponderadaALU/docs/operacoes/multiplicacao",
+              "sidebar": "aluSidebar"
+            },
+            {
+              "id": "operacoes/nand",
+              "path": "/ponderadaALU/docs/operacoes/nand",
+              "sidebar": "aluSidebar"
+            },
+            {
+              "id": "operacoes/shift",
+              "path": "/ponderadaALU/docs/operacoes/shift",
+              "sidebar": "aluSidebar"
+            },
+            {
+              "id": "operacoes/soma",
+              "path": "/ponderadaALU/docs/operacoes/soma",
+              "sidebar": "aluSidebar"
+            },
+            {
+              "id": "operacoes/subtracao",
+              "path": "/ponderadaALU/docs/operacoes/subtracao",
+              "sidebar": "aluSidebar"
+            },
+            {
+              "id": "operacoes/xor",
+              "path": "/ponderadaALU/docs/operacoes/xor",
+              "sidebar": "aluSidebar"
+            },
+            {
+              "id": "referencias",
+              "path": "/ponderadaALU/docs/referencias",
+              "sidebar": "aluSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "aluSidebar": {
+              "link": {
+                "path": "/ponderadaALU/docs/intro",
+                "label": "🔧 Visão Geral da ALU"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

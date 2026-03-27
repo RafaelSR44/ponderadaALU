@@ -1,0 +1,29 @@
+{
+  "id": "operacoes/subtracao",
+  "title": "Subtração",
+  "description": "Subtração de 8 bits usando complemento de 2 e subtrator com restauração de 1 bit.",
+  "source": "@site/docs/operacoes/subtracao.mdx",
+  "sourceDirName": "operacoes",
+  "slug": "/operacoes/subtracao",
+  "permalink": "/ponderadaALU/docs/operacoes/subtracao",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "id": "subtracao",
+    "title": "Subtração",
+    "sidebar_position": 2,
+    "description": "Subtração de 8 bits usando complemento de 2 e subtrator com restauração de 1 bit."
+  },
+  "sidebar": "aluSidebar",
+  "previous": {
+    "title": "Soma",
+    "permalink": "/ponderadaALU/docs/operacoes/soma"
+  },
+  "next": {
+    "title": "Multiplicação",
+    "permalink": "/ponderadaALU/docs/operacoes/multiplicacao"
+  }
+}
