@@ -20,6 +20,10 @@ Projeto de uma **Unidade Lógica e Aritmética (ALU) de 8 bits** construída do 
 A documentação completa está disponível em:
 **[https://RafaelSR44.github.io/ponderadaALU/](https://RafaelSR44.github.io/ponderadaALU/)**
 
+## Link para o video do projeto
+
+[https://youtu.be/IBPhQWCaU5M](https://youtu.be/IBPhQWCaU5M)
+
 ## Rodando a documentação localmente
 
 ### Pré-requisitos
