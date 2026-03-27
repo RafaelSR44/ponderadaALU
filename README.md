@@ -69,10 +69,3 @@ ponderadaALU/
 └── README.md
 ```
 
-## Referências
-
-- [Explicação ALU — Scribd](https://pt.scribd.com/document/809087842/Explicacao-ALU)
-- [Binary Subtractor — Electronics Tutorials](https://www.electronics-tutorials.ws/combination/binary-subtractor.html)
-- [ALU Tutorial — YouTube](https://www.youtube.com/watch?v=-5N1FY8EC_8)
-- [ALU Tutorial 2 — YouTube](https://www.youtube.com/watch?v=Wf_1mf6yCoc)
-- [ALU Tutorial 3 — YouTube](https://www.youtube.com/watch?v=joHG5yaOW5I)
