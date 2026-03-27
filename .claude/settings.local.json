@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"c:/Users/roque/OneDrive/Documents/Faculdade/Inteli/Modulo5/Programacao/ponderadaALU/ponderadaALU\" remote -v)",
+      "Bash(GIT_USER=\"RafaelSR44\" npm run deploy)"
+    ]
+  }
+}

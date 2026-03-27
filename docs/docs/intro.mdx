@@ -1,0 +1,97 @@
+---
+id: intro
+title: Visão Geral da ALU
+sidebar_position: 1
+description: O que é uma ALU, seu papel no processador e a estrutura da ALU de 8 bits implementada neste projeto.
+---
+
+import CircuitImage from '@site/src/components/CircuitImage';
+
+# Visão Geral da ALU 8-bit
+
+<div className="section-chip">🔧 Fundamentos de Arquitetura</div>
+
+## O que é uma ALU?
+
+A **Unidade Lógica e Aritmética** (ALU — *Arithmetic Logic Unit*) é o componente central de qualquer processador. É ela quem realiza todas as operações de cálculo: somas, subtrações, comparações, operações bit a bit e deslocamentos de bits.
+
+Em um processador, o ciclo de execução de uma instrução segue o caminho:
+
+```
+Busca → Decodificação → Execução (ALU) → Escrita de resultado
+```
+
+A ALU recebe dois operandos (A e B), executa a operação selecionada pelo opcode e devolve o resultado — junto com flags como carry-out, overflow e sinal negativo.
+
+```
+        ┌─────────────────────┐
+A[7:0] ─►│                     ├─► Resultado[7:0]
+        │       ALU 8-bit      │
+B[7:0] ─►│                     ├─► Flags (Cout, Neg, Over)
+        │                     │
+SEL[2:0]─►│  Seletor de Operação│
+        └─────────────────────┘
+```
+
+## Estrutura desta ALU
+
+Esta ALU foi implementada do zero no simulador **Digital** usando arquitetura hierárquica: cada operação é um módulo `.dig` independente, e o módulo principal `ALU8bits.dig` usa um **multiplexor 8:1** controlado por 3 bits de seleção para rotear a saída correta.
+
+<CircuitImage
+  src="/img/circuits/ALU8bits.png"
+  alt="Diagrama do circuito ALU 8-bit completo"
+  caption="Circuito completo da ALU 8-bit no simulador Digital"
+/>
+
+### Mapa de opcodes
+
+<div className="alu-table-wrap">
+<table className="alu-table">
+  <thead>
+    <tr>
+      <th>SEL[2:0]</th>
+      <th>Operação</th>
+      <th>Tipo</th>
+      <th>Descrição</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>000</td><td>Soma</td><td>Aritmética</td><td>A + B (ripple carry)</td></tr>
+    <tr><td>001</td><td>Subtração</td><td>Aritmética</td><td>A − B (complemento de 2)</td></tr>
+    <tr><td>010</td><td>Multiplicação</td><td>Aritmética</td><td>A × B (multiplicador array)</td></tr>
+    <tr><td>011</td><td>Divisão</td><td>Aritmética</td><td>A ÷ B (divisão com restauração)</td></tr>
+    <tr><td>100</td><td>Left Shift</td><td>Deslocamento</td><td>A &lt;&lt; 1 (multiplica por 2)</td></tr>
+    <tr><td>101</td><td>Right Shift</td><td>Deslocamento</td><td>A &gt;&gt; 1 (divide por 2)</td></tr>
+    <tr><td>110</td><td>NAND</td><td>Lógica</td><td>NOT (A AND B)</td></tr>
+    <tr><td>111</td><td>XOR</td><td>Lógica</td><td>A ⊕ B (ou exclusivo)</td></tr>
+  </tbody>
+</table>
+</div>
+
+## Hierarquia de módulos
+
+```
+ALU8bits.dig
+├── soma8bits.dig
+│   └── soma1bit.dig          (somador completo de 1 bit)
+├── sub8bits.dig
+│   ├── inversor8bits.dig
+│   └── soma8bits.dig
+├── subWRestore8bits.dig
+│   └── sub8bits.dig
+├── multiplicacao8bits.dig
+│   └── soma1bit.dig
+├── divisor8bits.dig
+│   └── subRestore1bit.dig
+│       └── soma1bit.dig
+├── LeftShift8bits.dig
+├── RightShift8bits.dig
+├── nand8bits.dig
+└── XOR8bits.dig
+```
+
+Todos os módulos trabalham com **barramento de 8 bits** e usam **splitters** para decompor os operandos em bits individuais quando necessário — especialmente nas operações de multiplicação e divisão, onde o processamento é feito bit a bit.
+
+:::info Sobre o simulador Digital
+Os circuitos foram construídos no [Digital](https://github.com/hneemann/Digital), um simulador de circuitos lógicos open-source. Os arquivos `.dig` são XML que descrevem a topologia do circuito: componentes, posições e conexões.
+:::

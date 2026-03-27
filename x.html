@@ -1,0 +1,199 @@
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+.wrap { font-family: var(--font-sans); color: var(--color-text-primary); padding: 0.5rem 0; }
+.scroll-area { overflow-x: auto; overflow-y: auto; max-height: 80vh; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); background: #0d1117; padding: 12px; }
+.legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; font-size: 12px; color: var(--color-text-secondary); }
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-swatch { width: 14px; height: 10px; border-radius: 2px; }
+.info-panel { margin-top: 12px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; padding: 10px 14px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); min-height: 36px; }
+#tooltip { position: absolute; background: #1a1f2e; color: #e6edf3; font-size: 11px; padding: 6px 10px; border-radius: 6px; pointer-events: none; display: none; z-index: 10; white-space: pre-line; border: 1px solid #30363d; max-width: 260px; line-height: 1.5; }
+</style>
+<div class="wrap">
+<div class="scroll-area" style="position:relative;">
+<div id="tooltip"></div>
+<svg id="circ" xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+<div class="legend">
+<div class="legend-item"><div class="legend-swatch" style="background:#58a6ff"></div>Divisor (d7-d0)</div>
+<div class="legend-item"><div class="legend-swatch" style="background:#f0c040"></div>Dividendo (D7-D0)</div>
+<div class="legend-item"><div class="legend-swatch" style="background:#ff7b4f"></div>Quociente (Q7-Q0)</div>
+<div class="legend-item"><div class="legend-swatch" style="background:#7ee787"></div>Resto (R7-R0)</div>
+<div class="legend-item"><div class="legend-swatch" style="background:#8b949e"></div>"0" (padding)</div>
+<div class="legend-item"><div class="legend-swatch" style="background:#f85149"></div>"1" (carry-in C2)</div>
+<div class="legend-item"><div class="legend-swatch" style="background:#a5d6ff"></div>Resto parcial (MUX out)</div>
+<div class="legend-item"><div class="legend-swatch" style="background:#3fb950;width:14px;height:2px"></div>Carry chain</div>
+</div>
+<div class="info-panel" id="info">Passe o mouse sobre qualquer PU, seta ou rótulo para ver os detalhes do fluxo de dados.</div>
+</div>
+<script>
+const svg = document.getElementById('circ');
+const tooltip = document.getElementById('tooltip');
+const info = document.getElementById('info');
+const PW = 40, PH = 28, CW = 52, CH = 58;
+const ML = 80, MT = 55;
+const ROWS = 8, COLS_PER_ROW = 8;
+const TOTAL_COLS = ROWS + COLS_PER_ROW - 1;
+const W = ML + TOTAL_COLS * CW + 80;
+const H = MT + ROWS * CH + 70;
+svg.setAttribute('width', W);
+svg.setAttribute('height', H);
+svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+function mkEl(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  return el;
+}
+function addText(parent, x, y, txt, fill, size, anchor, weight) {
+  const t = mkEl('text', { x, y, fill: fill || '#e6edf3', 'font-size': size || 11, 'text-anchor': anchor || 'middle', 'font-family': 'var(--font-sans)', 'font-weight': weight || 400, 'dominant-baseline': 'central' });
+  t.textContent = txt;
+  parent.appendChild(t);
+  return t;
+}
+function addLine(parent, x1, y1, x2, y2, color, w, dash) {
+  const l = mkEl('line', { x1, y1, x2, y2, stroke: color, 'stroke-width': w || 1, 'stroke-linecap': 'round' });
+  if (dash) l.setAttribute('stroke-dasharray', dash);
+  parent.appendChild(l);
+  return l;
+}
+function addArrow(parent, x1, y1, x2, y2, color, w) {
+  const g = mkEl('g', {});
+  addLine(g, x1, y1, x2, y2, color, w || 1);
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+  const hl = 5;
+  const p = mkEl('polygon', {
+    points: `${x2},${y2} ${x2 - hl * Math.cos(angle - 0.4)},${y2 - hl * Math.sin(angle - 0.4)} ${x2 - hl * Math.cos(angle + 0.4)},${y2 - hl * Math.sin(angle + 0.4)}`,
+    fill: color
+  });
+  g.appendChild(p);
+  parent.appendChild(g);
+  return g;
+}
+
+function puPos(row, colInRow) {
+  const globalCol = row + colInRow;
+  const x = ML + globalCol * CW;
+  const y = MT + row * CH;
+  return { x, y };
+}
+
+const defs = mkEl('defs', {});
+svg.appendChild(defs);
+
+for (let r = 0; r < ROWS; r++) {
+  for (let c = 0; c < COLS_PER_ROW; c++) {
+    const { x, y } = puPos(r, c);
+
+    if (r < ROWS - 1) {
+      const nextC = c - 1;
+      if (nextC >= 0 && nextC < COLS_PER_ROW) {
+        const np = puPos(r + 1, nextC);
+        addLine(svg, x + PW / 2, y + PH, np.x + PW / 2, np.y - 2, '#a5d6ff', 0.7);
+      }
+    }
+  }
+}
+
+for (let r = 0; r < ROWS; r++) {
+  for (let c = 0; c < COLS_PER_ROW - 1; c++) {
+    const p1 = puPos(r, c + 1);
+    const p2 = puPos(r, c);
+    addLine(svg, p1.x - 2, p1.y + PH / 2, p2.x + PW + 2, p2.y + PH / 2, '#3fb950', 0.6);
+  }
+}
+
+for (let c = 0; c < COLS_PER_ROW; c++) {
+  const p = puPos(0, c);
+  const dx = p.x + PW / 2;
+  addArrow(svg, dx, MT - 20, dx, p.y - 2, '#58a6ff', 0.8);
+  addText(svg, dx, MT - 27, `d${COLS_PER_ROW - 1 - c}`, '#58a6ff', 10, 'middle', 500);
+}
+
+for (let r = 0; r < ROWS; r++) {
+  const p = puPos(r, COLS_PER_ROW - 1);
+  const dx = p.x + PW + 12;
+  addArrow(svg, dx + 18, p.y + PH / 2, p.x + PW + 2, p.y + PH / 2, '#f0c040', 0.8);
+  addText(svg, dx + 26, p.y + PH / 2, `D${ROWS - 1 - r}`, '#f0c040', 10, 'start', 500);
+}
+
+for (let r = 0; r < ROWS; r++) {
+  const lastP = puPos(r, COLS_PER_ROW - 1);
+  const carryInX = lastP.x + PW + 6;
+  addText(svg, carryInX, lastP.y + PH + 6, '1', '#f85149', 9, 'middle', 500);
+}
+
+for (let r = 0; r < ROWS; r++) {
+  const p0 = puPos(r, 0);
+  addArrow(svg, p0.x - 2, p0.y + PH / 2, ML - 18, p0.y + PH / 2, '#ff7b4f', 0.8);
+  addText(svg, ML - 25, p0.y + PH / 2, `Q${ROWS - 1 - r}`, '#ff7b4f', 10, 'end', 500);
+}
+
+for (let r = 0; r < ROWS; r++) {
+  const p0 = puPos(r, 0);
+  addArrow(svg, p0.x - 12, p0.y + PH / 2 - 10, p0.x - 2, p0.y + PH / 2, '#8b949e', 0.7);
+  addText(svg, p0.x - 16, p0.y + PH / 2 - 14, '0', '#8b949e', 9, 'middle');
+}
+
+const lastRow = ROWS - 1;
+for (let c = 0; c < COLS_PER_ROW; c++) {
+  const p = puPos(lastRow, c);
+  const bx = p.x + PW / 2;
+  const by = p.y + PH;
+  addArrow(svg, bx, by, bx, by + 22, '#7ee787', 0.8);
+  addText(svg, bx, by + 32, `R${COLS_PER_ROW - 1 - c}`, '#7ee787', 10, 'middle', 500);
+}
+
+for (let r = 0; r < ROWS; r++) {
+  for (let c = 0; c < COLS_PER_ROW; c++) {
+    const { x, y } = puPos(r, c);
+    const divisorBit = COLS_PER_ROW - 1 - c;
+    const g = mkEl('g', { cursor: 'pointer' });
+
+    const rect = mkEl('rect', {
+      x, y, width: PW, height: PH, rx: 4,
+      fill: '#1a3a2a', stroke: '#3fb950', 'stroke-width': 0.8
+    });
+    g.appendChild(rect);
+    addText(g, x + PW / 2, y + PH / 2, 'PU', '#7ee787', 9, 'middle', 500);
+
+    const rowLabel = ROWS - 1 - r;
+    const inputA = r === 0 ? (c === 0 ? '0' : `0 (pad)`) :
+      (c === COLS_PER_ROW - 1 ? `D${rowLabel}` : `MUX_out[${r-1}][${c === 0 ? 'esq+1' : c-1}]`);
+
+    const ttText = `PU[${r}][${c}] — Fileira Q${rowLabel}\n` +
+      `Entrada A (de cima): ${r === 0 ? '0 (padding)' : (c === 0 ? '0 (ext. zero divisor)' : `Resto parcial da fileira Q${rowLabel+1}`)}\n` +
+      `Entrada B (divisor): ${c === 0 && r >= COLS_PER_ROW ? '0 (zero-ext)' : `NOT(d${divisorBit})`}\n` +
+      `Cin: ${c === COLS_PER_ROW - 1 ? '1 (compl. 2)' : `Cout do PU à direita`}\n` +
+      `Cout → ${c === 0 ? `Q${rowLabel} (quociente)` : 'PU à esquerda'}\n` +
+      `MUX out → ${r === ROWS - 1 ? `R${divisorBit} (resto)` : `PU abaixo (resto parcial)`}\n` +
+      `MUX select: Cout do PU mais à esquerda desta fileira`;
+
+    g.addEventListener('mouseenter', (e) => {
+      rect.setAttribute('fill', '#2a5a3a');
+      rect.setAttribute('stroke-width', '1.5');
+      tooltip.style.display = 'block';
+      tooltip.textContent = ttText;
+      const br = svg.parentElement.getBoundingClientRect();
+      tooltip.style.left = (e.clientX - br.left + 10) + 'px';
+      tooltip.style.top = (e.clientY - br.top - 60) + 'px';
+      info.innerHTML = ttText.replace(/\n/g, '<br>');
+    });
+    g.addEventListener('mouseleave', () => {
+      rect.setAttribute('fill', '#1a3a2a');
+      rect.setAttribute('stroke-width', '0.8');
+      tooltip.style.display = 'none';
+    });
+    g.addEventListener('mousemove', (e) => {
+      const br = svg.parentElement.getBoundingClientRect();
+      tooltip.style.left = (e.clientX - br.left + 10) + 'px';
+      tooltip.style.top = (e.clientY - br.top - 60) + 'px';
+    });
+
+    svg.appendChild(g);
+  }
+}
+
+addText(svg, W / 2, 12, 'Circuito de divisão binária 8 bits ÷ 8 bits — Restoring Division', '#e6edf3', 13, 'middle', 500);
+addText(svg, W / 2, H - 8, '64 PUs (Full Adder + MUX 2:1) — 8 fileiras × 8 colunas em arranjo diagonal', '#8b949e', 10, 'middle');
+</script>

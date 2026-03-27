@@ -1,0 +1,90 @@
+---
+id: nand
+title: NAND
+sidebar_position: 6
+description: Porta NAND de 8 bits — a porta universal da lógica digital.
+---
+
+import CircuitImage from '@site/src/components/CircuitImage';
+import ExampleBox from '@site/src/components/ExampleBox';
+
+# NAND — Porta Universal
+
+<div className="section-chip">🔀 Lógica · SEL = 110</div>
+
+## Teoria
+
+A porta **NAND** (*Not AND*) é o complemento da porta AND: seu resultado é o inverso do AND de duas entradas.
+
+### Tabela verdade (1 bit)
+
+| A | B | A AND B | A NAND B |
+|---|---|---------|----------|
+| 0 | 0 | 0       | **1**    |
+| 0 | 1 | 0       | **1**    |
+| 1 | 0 | 0       | **1**    |
+| 1 | 1 | 1       | **0**    |
+
+**Equação:**
+```
+A NAND B = NOT (A AND B) = ~(A · B)
+```
+
+## Por que NAND é chamada de "porta universal"?
+
+Com apenas portas NAND é possível construir **qualquer** função lógica:
+
+```
+NOT A     = A NAND A
+A AND B   = (A NAND B) NAND (A NAND B)
+A OR  B   = (A NAND A) NAND (B NAND B)
+A XOR B   = [combinação de NANDs]
+```
+
+Isso tem implicação prática: processadores e chips digitais frequentemente são fabricados inteiramente com células NAND, pois a porta NAND tem excelente eficiência de área em CMOS (tecnologia de fabricação de chips).
+
+## Implementação: nand8bits.dig
+
+O módulo `nand8bits.dig` aplica uma porta NAND de 8 bits aos operandos A e B, processando todos os 8 pares de bits em paralelo:
+
+```
+A[7] ─┐
+B[7] ─┤ NAND → saída[7]
+      │
+A[6] ─┐
+B[6] ─┤ NAND → saída[6]
+      │
+...
+A[0] ─┐
+B[0] ─┤ NAND → saída[0]
+```
+
+Cada bit da saída é calculado independentemente, sem propagação entre bits — tornando a operação instantânea (delay de apenas 1 porta).
+
+<CircuitImage
+  src="/img/circuits/nand8bits.png"
+  alt="Circuito da porta NAND de 8 bits"
+  caption="nand8bits.dig — NAND bit a bit em paralelo para operandos de 8 bits"
+/>
+
+## Exemplo
+
+<ExampleBox
+  title="NAND: 0xF0 NAND 0xAA"
+  rows={[
+    { label: 'A', binary: '1111 0000', decimal: '0xF0 = 240' },
+    { label: 'B', binary: '1010 1010', decimal: '0xAA = 170' },
+    { label: 'A·B', binary: '1010 0000', decimal: 'AND intermediário' },
+  ]}
+  result={{ label: 'NAND', binary: '0101 1111', decimal: '0x5F = 95' }}
+  operator="NAND"
+/>
+
+**Verificação bit a bit:**
+
+```
+A:       1 1 1 1 0 0 0 0
+B:       1 0 1 0 1 0 1 0
+A AND B: 1 0 1 0 0 0 0 0
+NAND:    0 1 0 1 1 1 1 1  = 0101 1111 = 95  ✓
+```
