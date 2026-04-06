@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>2</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>ALU8bits.dig</elementName>
+      <elementAttributes>
+        <entry>
+          <string>shapeType</string>
+          <shapeType>CUSTOM</shapeType>
+        </entry>
+      </elementAttributes>
+      <pos x="900" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>EEPROMDualPort</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Operandos</string>
+        </entry>
+        <entry>
+          <string>AddrBits</string>
+          <int>3</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>Data</string>
+          <data>a,5,2,2</data>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>EEPROMDualPort</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Operações</string>
+        </entry>
+        <entry>
+          <string>AddrBits</string>
+          <int>3</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+        <entry>
+          <string>Data</string>
+          <data>0,1,2,3,4,5,6,7</data>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="40"/>
+    </visualElement>
+  </visualElements>
+  <wires/>
+  <measurementOrdering/>
+</circuit>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafael Santana Rodrigues - Resume</title>
+    <style>
+        @media print {
+            body { margin: 0; padding: 0; }
+            .container { box-shadow: none; }
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .contact-info a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        section {
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            font-size: 18px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .job, .education-item, .project {
+            margin-bottom: 15px;
+        }
+        
+        .job-header, .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+        
+        .job-title, .degree {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .company, .institution {
+            color: #3498db;
+            font-size: 13px;
+        }
+        
+        .date {
+            font-size: 12px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .description {
+            font-size: 13px;
+            color: #555;
+            margin-top: 5px;
+            line-height: 1.6;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-size: 13px;
+        }
+        
+        .skill-category {
+            padding: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+        }
+        
+        .skill-category strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .project {
+            border-left: 3px solid #3498db;
+            padding-left: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .project-title {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+        
+        .project-tech {
+            font-size: 11px;
+            color: #7f8c8d;
+            margin-bottom: 4px;
+        }
+        
+        .project-desc {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .languages, .certifications {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        ul {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+        
+        li {
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Rafael Santana Rodrigues</h1>
+            <div class="contact-info">
+                <span>📍 São Paulo, SP, Brazil</span>
+                <span>📧 <a href="/cdn-cgi/l/email-protection#4635272832272827342922342f2133233534272027232a727506212b272f2a6825292b"><span class="__cf_email__" data-cfemail="6310020d17020d02110c07110a0416061011020502060f575023040e020a0f4d000c0e">[email&#160;protected]</span></a></span>
+                <span>📱 +55 11 99905-6267</span>
+                <span>💼 <a href="https://linkedin.com/in/rafael-santana-rodrigues" target="_blank">LinkedIn</a></span>
+                <span>💻 <a href="https://github.com/RafaelSR44" target="_blank">GitHub</a></span>
+            </div>
+        </header>
+
+        <section>
+            <h2>Professional Summary</h2>
+            <p class="description">
+                Computer Engineering student with strong expertise in process automation, full-stack web development, and AI integration. 
+                Experienced in building intelligent search systems with NLP, vector embeddings, and recommendation algorithms for the financial sector.
+                Proven track record in developing innovative platforms for investment banking, education, and fintech sectors using .NET, Python, JavaScript, and cloud technologies.
+            </p>
+        </section>
+
+        <section>
+            <h2>Work Experience</h2>
+            
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Summer Intern</div>
+                        <div class="company">Olimpia Partners</div>
+                    </div>
+                    <div class="date">Jul 2025</div>
+                </div>
+                <p class="description">Participated in intensive summer internship program at investment banking firm.</p>
+            </div>
+            
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Summer Intern</div>
+                        <div class="company">Genial Investimentos</div>
+                    </div>
+                    <div class="date">Jan 2026</div>
+                </div>
+                <p class="description">
+                    Built an intelligent investment product search system using NLP, vector embeddings, and Elasticsearch 
+                    on a .NET/Azure stack with Google Gemini API integration, enabling natural language queries to return 
+                    personalized product recommendations. Developed an AI-powered recommendation model for the CRM platform, 
+                    suggesting strategic actions to financial advisors in the Performance division. Created an automated 
+                    newsletter management tool with AI integration, reducing operational effort for the marketing team.
+                </p>
+            </div>
+            
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Prompt Engineer</div>
+                        <div class="company">Coploy & ChatBank</div>
+                    </div>
+                    <div class="date">Aug 2024 - Dec 2024</div>
+                </div>
+                <p class="description">
+                    Developed and optimized AI prompts for chatbot systems. Designed conversation flows and implemented 
+                    natural language processing solutions to enhance user interactions and automate customer service processes.
+                </p>
+            </div>
+            
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Apprentice</div>
+                        <div class="company">Gomes da Costa (Calvo Group)</div>
+                    </div>
+                    <div class="date">Jun 2022 - Jan 2023</div>
+                </div>
+                <p class="description">
+                    Managed Excel-based organizational systems and coordinated donation processes with charitable institutions. 
+                    Handled vendor quotations for event promotion and maintained systematic communication workflows.
+                </p>
+            </div>
+        </section>
+        <section>
+            <h2>Education</h2>
+            
+            <div class="education-item">
+                <div class="education-header">
+                    <div>
+                        <div class="degree">Bachelor of Engineering - Computer Engineering</div>
+                        <div class="institution">Inteli - Institute of Technology and Leadership</div>
+                    </div>
+                    <div class="date">Feb 2025 - Present</div>
+                </div>
+            </div>
+            
+            <div class="education-item">
+                <div class="education-header">
+                    <div>
+                        <div class="degree">Computer Engineering (Transferred)</div>
+                        <div class="institution">Universidade do Vale do Itajaí (UNIVALI)</div>
+                    </div>
+                    <div class="date">Jan 2023 - Jul 2024</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Key Projects</h2>
+            
+            <div class="project">
+                <div class="project-title">Investment Banking Research Automation</div>
+                <div class="project-tech">N8N • Google Cloud • JavaScript • APIs Integration</div>
+                <p class="project-desc">
+                    Automated research system for Brazilian stock market analysis (B3). Integrates Gemini AI, BRAPI, and NewsAPI 
+                    to generate professional reports in Google Docs. Features intelligent matching, real-time data, and multi-source analysis.
+                </p>
+            </div>
+            
+            <div class="project">
+                <div class="project-title">AprendizAGRO - Bayer Training Platform</div>
+                <div class="project-tech">Node.js • Express • PostgreSQL • EJS • MVC Architecture</div>
+                <p class="project-desc">
+                    Web platform for training Technical Promoters at Bayer Crop Science. Features learning trails, gamification, 
+                    quizzes, and performance analytics. Implements OAuth authentication and automated endpoint testing with Jest.
+                </p>
+            </div>
+            
+            <div class="project">
+                <div class="project-title">Emprestou - P2P Lending Platform</div>
+                <div class="project-tech">WhatsApp API • Python • AI Integration • PIX Gateway</div>
+                <p class="project-desc">
+                    P2P lending platform via WhatsApp with AI-powered negotiation. Features include credit scoring ML models, 
+                    KYC/biometric validation, and Open Finance integration. Designed for 100% WhatsApp-based operation.
+                </p>
+            </div>
+            
+            <div class="project">
+                <div class="project-title">Dr. Cat: Amazônia - Interactive Game</div>
+                <div class="project-tech">Phaser.js • JavaScript • Game Development</div>
+                <p class="project-desc">
+                    Point-and-click game designed for cats and their owners. Features 10 progressive levels, 
+                    educational content about endangered Amazon species, and accessibility-focused design for feline vision spectrum.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <strong>Languages</strong>
+                    Python, JavaScript, C#, HTML5, CSS3, SQL, C++
+                </div>
+                <div class="skill-category">
+                    <strong>Frameworks & Tools</strong>
+                    .NET 8.0, Node.js, Express, Flask, React, Phaser.js
+                </div>
+                <div class="skill-category">
+                    <strong>Databases</strong>
+                    PostgreSQL, Elasticsearch, Supabase, SQLite, Redis
+                </div>
+                <div class="skill-category">
+                    <strong>Cloud & DevOps</strong>
+                    AWS, Google Cloud, Docker, Git, GitHub Actions
+                </div>
+                <div class="skill-category">
+                    <strong>Automation & AI</strong>
+                    N8N, Zapier, OpenAI API, Gemini AI, Prompt Engineering
+                </div>
+                <div class="skill-category">
+                    <strong>APIs & Integration</strong>
+                    REST API, OAuth, Webhooks, Open Finance, PIX
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Languages</h2>
+            <div class="languages">
+                <ul>
+                    <li><strong>Portuguese:</strong> Native</li>
+                    <li><strong>English:</strong> Full Professional Proficiency</li>
+                    <li><strong>Spanish:</strong> Limited Working Proficiency</li>
+                </ul>
+            </div>
+        </section>
