@@ -1,0 +1,130 @@
+---
+id: divisao
+title: Divisão
+sidebar_position: 4
+description: Divisão de 8 bits usando o algoritmo de divisão com restauração e subtratores de 1 bit.
+---
+
+import CircuitImage from '@site/src/components/CircuitImage';
+import ExampleBox from '@site/src/components/ExampleBox';
+
+# Divisão — Algoritmo com Restauração
+
+<div className="section-chip">⚙️ Aritmética · SEL = 011</div>
+
+## Teoria: Divisão com Restauração
+
+A **divisão com restauração** (*restoring division*) é o método mais intuitivo de divisão em hardware. O algoritmo imita o processo de divisão longa manual:
+
+1. Pega o dividendo, bit a bit, da esquerda para a direita
+2. Tenta subtrair o divisor do fragmento atual
+3. Se o resultado **não for negativo** → o bit do quociente é **1**, mantém o resultado
+4. Se o resultado **for negativo** → o bit do quociente é **0**, **restaura** (soma o divisor de volta)
+5. Repete 8 vezes (uma por bit do quociente)
+
+### Pseudocódigo
+
+```
+remainder = dividendo
+for i = 7 downto 0:
+    remainder = remainder - divisor
+    if remainder >= 0:
+        quotient[i] = 1
+    else:
+        quotient[i] = 0
+        remainder = remainder + divisor   ← RESTAURAÇÃO
+```
+
+## O Subtrator com Restauração de 1 bit (subRestore1bit.dig)
+
+O bloco fundamental da divisão é o **subtrator com restauração de 1 bit**. Ele encapsula a lógica "tenta subtrair, se negativo restaura":
+
+```
+Entradas:
+  A   — bit do resto parcial
+  B   — bit do divisor
+  Cin — carry-in (propagado da posição anterior)
+  S   — sinal de controle (resultado do bit anterior)
+
+Saídas:
+  R    — resultado restaurado (ou subtraído)
+  Cout — carry-out para a próxima posição
+```
+
+Internamente, usa um `soma1bit.dig` para a subtração (A − B − Cin), e um **multiplexor** controlado pelo carry para decidir se restaura:
+
+- Se `Cout = 1` (subtração não ficou negativa): mantém `A − B`
+- Se `Cout = 0` (negativo): o MUX seleciona o valor original `A` (restauração)
+
+<CircuitImage
+  src="/img/circuits/subRestore1bit.png"
+  alt="Circuito do subtrator de 1 bit com restauração"
+  caption="subRestore1bit.dig — subtrator condicional, bloco base da divisão com restauração"
+/>
+
+## Estrutura do Divisor de 8 bits (divisor8bits.dig)
+
+Para dividir números de 8 bits, são encadeados **8 estágios** de subtratores com restauração, um para cada bit do quociente. O processo é paralelo: ao contrário da multiplicação manual sequencial, o hardware calcula todos os bits do quociente em paralelo, com cada coluna de `subRestore1bit` trabalhando simultaneamente.
+
+```
+Dividendo A[7:0] ──────────────────────────────────────┐
+Divisor   B[7:0] ──────────────────────────────────────┤
+                                                        │
+  Estágio 7  →  Estágio 6  →  Estágio 5  → ... → Estágio 0
+  (bit Q7)       (bit Q6)       (bit Q5)            (bit Q0)
+     │               │               │                  │
+  Cout7           Cout6           Cout5              Cout0
+  = Q7            = Q6            = Q5               = Q0
+```
+
+O `Cout` de cada estágio determina o bit correspondente do quociente:
+- `Cout = 1` → quociente bit = 1 (subtração bem-sucedida)
+- `Cout = 0` → quociente bit = 0 (restaurou)
+
+<CircuitImage
+  src="/img/circuits/divisor8bits.png"
+  alt="Circuito do divisor de 8 bits"
+  caption="divisor8bits.dig — 8 estágios de subRestore1bit para divisão com restauração"
+/>
+
+## Representação gráfica do algoritmo
+
+<CircuitImage
+  src="/img/circuits/RGdivisor8bits.png"
+  alt="Representação gráfica do algoritmo de divisão com restauração"
+  caption="Representação gráfica (RG) — fluxo do algoritmo de divisão com restauração em 8 iterações"
+/>
+
+## Exemplo
+
+<ExampleBox
+  title="Divisão: 12 ÷ 3 = 4"
+  rows={[
+    { label: 'Dividendo', binary: '0000 1100', decimal: '12' },
+    { label: 'Divisor', binary: '0000 0011', decimal: '3' },
+  ]}
+  result={{ label: 'Quociente', binary: '0000 0100', decimal: '4' }}
+  operator="÷"
+/>
+
+**Trace do algoritmo (simplificado):**
+
+```
+Divisor = 3 = 0000 0011
+
+Resto inicial = 0000 1100 (12)
+
+Iteração para Q7: resto = 12 − 3 = 9 ≥ 0  → Q7 = 1, resto = 9
+Iteração para Q6: resto =  9 − 3 = 6 ≥ 0  → Q6 = 1, resto = 6
+Iteração para Q5: resto =  6 − 3 = 3 ≥ 0  → Q5 = 1, resto = 3
+Iteração para Q4: resto =  3 − 3 = 0 ≥ 0  → Q4 = 1, resto = 0
+Iteração para Q3: resto =  0 − 3 = −3 < 0 → Q3 = 0, RESTAURA → resto = 3
+...
+
+Quociente Q = 0000 0100 = 4  ✓
+Resto final = 0000 0000 = 0  ✓
+```
+
+:::note Limitação
+Esta implementação usa divisão sem sinal (inteiros não negativos). Para dividendos menores que o divisor, o quociente será 0 e o resto será o próprio dividendo.
+:::

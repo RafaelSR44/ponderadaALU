@@ -1,0 +1,240 @@
+---
+id: cpu
+title: CPU Harvard
+sidebar_position: 9
+description: Arquitetura e funcionamento da CPU de arquitetura Harvard construída no simulador Digital.
+---
+
+import CircuitImage from '@site/src/components/CircuitImage';
+
+# CPU — Arquitetura Harvard
+
+<div className="section-chip">🖥️ Processador · Arquitetura Harvard</div>
+
+## O que é uma CPU?
+
+A **Unidade Central de Processamento** (CPU — *Central Processing Unit*) é o cérebro de qualquer computador. Ela busca instruções na memória, decodifica o que deve fazer, executa a operação e armazena o resultado — repetindo esse ciclo continuamente enquanto houver instruções a executar.
+
+O ciclo fundamental de uma CPU é chamado de **ciclo de instrução** (ou ciclo *fetch-decode-execute*):
+
+```
+┌─────────┐    ┌──────────┐    ┌─────────┐    ┌──────────┐
+│  FETCH  │ →  │ DECODE   │ →  │ EXECUTE │ →  │  WRITE   │
+│ Busca   │    │Decodifica│    │  ALU    │    │ Resultado│
+│instrução│    │opcode    │    │ executa │    │ em reg.  │
+└─────────┘    └──────────┘    └─────────┘    └──────────┘
+      ↑                                               │
+      └───────────────── PC incrementa ───────────────┘
+```
+
+## Arquitetura Harvard vs Von Neumann
+
+Esta CPU usa a **Arquitetura Harvard**, que separa fisicamente a memória de dados da memória de instruções em dois barramentos distintos:
+
+| Característica | Harvard | Von Neumann |
+|---|---|---|
+| Memória de dados | Separada | Unificada |
+| Memória de instruções | Separada | Unificada |
+| Barramentos | 2 (dados + instruções) | 1 (compartilhado) |
+| Busca simultânea | ✅ Sim | ❌ Não |
+| Complexidade | Maior | Menor |
+| Uso típico | DSPs, microcontroladores | PCs gerais |
+
+Na arquitetura Harvard, a CPU pode buscar a próxima instrução **ao mesmo tempo** que acessa dados — eliminando o gargalo do barramento único (chamado de *von Neumann bottleneck*).
+
+## Componentes da CPU
+
+<CircuitImage
+  src="/img/circuits/CPU.png"
+  alt="Diagrama completo da CPU de arquitetura Harvard"
+  caption="CPU.dig — arquitetura Harvard completa com todos os componentes interligados"
+/>
+
+### 1. PC — Program Counter (Contador de Programa)
+
+O **PC** é um contador de 8 bits que mantém o endereço da próxima instrução a ser executada. A cada ciclo de clock, ele é incrementado automaticamente para apontar para a instrução seguinte.
+
+```
+PC[7:0] → endereço → Memória de Operações → opcode
+                   → Memória de Operandos → dado
+```
+
+- **Tipo:** Counter (contador de 8 bits)
+- **Função:** guardar e incrementar o endereço da instrução atual
+- **Reset:** pode ser zerado pelo botão de reset (ground no preset)
+
+### 2. Memória de Instruções — EEPROMs de Dupla Porta
+
+A CPU possui **duas EEPROMs** separadas, ambas endereçadas pelo PC:
+
+#### Memória de Operações (Opcode)
+- **Label:** `Operações`
+- **Largura:** 3 bits (suficiente para 8 opcodes distintos — SEL[2:0] da ALU)
+- **Endereços:** 8 bits (até 256 instruções)
+- Armazena **qual operação** executar em cada passo do programa
+
+#### Memória de Operandos (Dados)
+- **Label:** `Operandos`
+- **Largura:** 8 bits
+- **Endereços:** 8 bits
+- Armazena **os valores** a operar em cada passo do programa
+- Dados iniciais pré-carregados: `1, 2, 3, 4, 5, 6, ...`
+
+Essa separação é a essência da **arquitetura Harvard**: as duas memórias são lidas em paralelo no mesmo ciclo de clock.
+
+### 3. MAR — Memory Address Registers
+
+Dois registradores de 8 bits que fazem de *latch* (trava) entre o PC e as memórias:
+
+- **MAROperandos** — trava o endereço para a memória de operandos
+- **MAROperações** — trava o endereço para a memória de operações
+
+Sua função é estabilizar o endereço durante o ciclo de leitura da memória, evitando que variações no PC durante a leitura gerem dados corrompidos.
+
+### 4. IR — Instruction Register
+
+O **IR** (Instruction Register) é um registrador de 8 bits que armazena a instrução atualmente em execução. Após ser lido da memória, o opcode e o operando são travados no IR antes de serem enviados para a Unidade de Controle e para a ALU.
+
+### 5. CC — Control Unit (Unidade de Controle)
+
+A **Unidade de Controle** (`ControlUnit.dig`) é o "maestro" da CPU — ela gera todos os sinais de controle que coordenam os outros componentes. É implementada com:
+
+- **RingCounter8bits.dig** — contador em anel de 5 bits (Q0..Q4) que gera os sinais de tempo para cada micro-etapa do ciclo de instrução
+- **Lógica combinacional** (portas XOR) para derivar sinais de controle como `MAROperação`, `MAROperando` e `IR` a partir das saídas do ring counter
+
+#### Ring Counter (Contador em Anel)
+
+O ring counter usa **5 flip-flops D** (D_FF_AS) em série, com a saída do último realimentando a entrada do primeiro. Apenas um flip-flop está em `1` por vez, e esse "1" se propaga pelo anel a cada pulso de clock:
+
+```
+Estado:  Q0  Q1  Q2  Q3  Q4
+Ciclo 1:  1   0   0   0   0   → Fetch PC
+Ciclo 2:  0   1   0   0   0   → Lê memória de operações
+Ciclo 3:  0   0   1   0   0   → Lê memória de operandos
+Ciclo 4:  0   0   0   1   0   → Executa ALU
+Ciclo 5:  0   0   0   0   1   → Escreve resultado
+```
+
+Os sinais de saída da Unidade de Controle são derivados das saídas do ring counter:
+- **PC** ← controlado por `Q4` (incrementa após o ciclo completo)
+- **MAROperação** ← ativado em `Q0` (latch do endereço de operação)
+- **MAROperando** ← ativado em `Q2` (latch do endereço do operando)
+- **IR** ← gerado por `Q1 XOR Q3` (ativa no ciclo de decode)
+
+### 6. ALU — Unidade Lógica e Aritmética
+
+A ALU (`ALU8bits.dig`) integrada nesta CPU é exatamente a [ALU de 8 bits documentada neste projeto](/docs/intro). Ela recebe:
+- **Operando A** — vindo do registrador AC (acumulador)
+- **Operando B** — vindo da memória de operandos via barramento
+- **SEL[2:0]** — opcode da memória de operações
+
+E produz o resultado que é gravado de volta no AC.
+
+### 7. AC — Accumulator (Acumulador)
+
+O **AC** é o registrador central de 8 bits onde os resultados das operações são armazenados. Em uma arquitetura acumuladora:
+- Operações sempre usam AC como um dos operandos
+- O resultado sempre é salvo de volta em AC
+- Simplifica o conjunto de instruções (não precisa especificar registradores destino)
+
+### 8. MQ — Multiplier Quotient Register
+
+O **MQ** é um registrador auxiliar de 8 bits usado para armazenar resultados secundários de operações que produzem mais de 8 bits:
+- Na **multiplicação**: o produto de 8×8 gera até 16 bits — os 8 bits menos significativos ficam em AC e os 8 mais significativos ficam em MQ
+- Na **divisão**: o quociente fica em AC e o resto fica em MQ
+
+### 9. BUS — Barramento de Dados
+
+O **BUS** de 8 bits conecta todos os componentes de dados. Tunnels nomeados `BUS` distribuem o sinal pela CPU, evitando um emaranhado de fios.
+
+## Fluxo de execução — ciclo de instrução
+
+```
+Clock ↑
+  │
+  ├── Q0: PC → MAR (trava endereço)
+  │         MAR → EEPROM Operações (busca opcode)
+  │         MAR → EEPROM Operandos (busca operando)
+  │
+  ├── Q1: EEPROM → IR (trava instrução)
+  │         opcode → CC (decodifica)
+  │
+  ├── Q2: Operando → BUS
+  │         BUS → ALU entrada B
+  │         AC → ALU entrada A
+  │
+  ├── Q3: ALU executa operação (SEL = opcode)
+  │         Resultado disponível na saída da ALU
+  │
+  └── Q4: Resultado → AC (write-back)
+            PC + 1 → PC (incrementa)
+```
+
+## Hierarquia de módulos
+
+```
+CPU.dig
+├── Counter (PC — 8 bits)
+├── EEPROMDualPort (Operandos — 8 bits × 256)
+├── EEPROMDualPort (Operações — 3 bits × 256)
+├── Register (MAROperandos — 8 bits)
+├── Register (MAROperações — 8 bits)
+├── Register (IR — 8 bits)
+├── Register (AC — acumulador, 8 bits)
+├── Register (MQ — quociente/resto, 8 bits)
+├── ALU8bits.dig
+│   └── [todas as operações da ALU]
+└── ControlUnit.dig
+    └── RingCounter8bits.dig
+        └── 5× D_FF_AS (flip-flop D com set/reset assíncrono)
+```
+
+## Conjunto de instruções
+
+A CPU suporta as mesmas 8 instruções da ALU, selecionadas pelo opcode de 3 bits armazenado na memória de operações:
+
+<div className="alu-table-wrap">
+<table className="alu-table">
+  <thead>
+    <tr>
+      <th>Opcode (3 bits)</th>
+      <th>Instrução</th>
+      <th>Operação</th>
+      <th>Resultado em AC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>000</td><td>ADD</td><td>AC + operando</td><td>Soma</td></tr>
+    <tr><td>001</td><td>SUB</td><td>AC − operando</td><td>Diferença</td></tr>
+    <tr><td>010</td><td>MUL</td><td>AC × operando</td><td>Produto (8 LSB)</td></tr>
+    <tr><td>011</td><td>DIV</td><td>AC ÷ operando</td><td>Quociente</td></tr>
+    <tr><td>100</td><td>SHL</td><td>AC &lt;&lt; 1</td><td>Shift esquerda</td></tr>
+    <tr><td>101</td><td>SHR</td><td>AC &gt;&gt; 1</td><td>Shift direita</td></tr>
+    <tr><td>110</td><td>NAND</td><td>NOT (AC AND operando)</td><td>NAND lógico</td></tr>
+    <tr><td>111</td><td>XOR</td><td>AC ⊕ operando</td><td>XOR lógico</td></tr>
+  </tbody>
+</table>
+</div>
+
+## Exemplo de programa
+
+Com os dados pré-carregados na EEPROM de operandos (`1, 2, 3, 4, 5, 6, ...`):
+
+```
+Endereço | Opcode | Operando | Operação
+---------|--------|----------|------------------
+0x00     | 000    | 1        | AC = AC + 1 = 1
+0x01     | 000    | 2        | AC = AC + 2 = 3
+0x02     | 010    | 3        | AC = AC × 3 = 9
+0x03     | 001    | 4        | AC = AC - 4 = 5
+0x04     | 100    | 5        | AC = AC << 1 = 10
+0x05     | 111    | 6        | AC = AC XOR 6 = 12
+```
+
+:::info Clock em tempo real
+O clock da CPU está configurado como `runRealTime: true`, o que significa que no simulador Digital ele oscila em tempo real. Um botão de reset está disponível para reiniciar o estado da CPU (zera o PC e todos os registradores).
+:::
+
+:::tip Arquitetura Harvard na prática
+A separação entre memória de operações (3 bits) e memória de operandos (8 bits) reflete bem a ideia Harvard: as duas memórias têm larguras diferentes adequadas ao seu propósito — 3 bits bastam para 8 opcodes, enquanto 8 bits são necessários para os dados.
+:::

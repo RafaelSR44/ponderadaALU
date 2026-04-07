@@ -1,0 +1,109 @@
+---
+id: shift
+title: Shift Lógico
+sidebar_position: 5
+description: Deslocamento lógico para esquerda (×2) e direita (÷2) de 8 bits.
+---
+
+import CircuitImage from '@site/src/components/CircuitImage';
+import ExampleBox from '@site/src/components/ExampleBox';
+
+# Shift Lógico — Deslocamento de Bits
+
+<div className="section-chip">🔀 Deslocamento · SEL = 100 (esquerda) / 101 (direita)</div>
+
+## Teoria
+
+O **shift lógico** desloca todos os bits de um número uma posição para a esquerda ou direita, inserindo zero na posição vaga. É a forma mais eficiente de multiplicar ou dividir por potências de 2 em hardware — uma única operação, sem somadores.
+
+```
+Left Shift (<<1):   A7 A6 A5 A4 A3 A2 A1 A0
+                    A6 A5 A4 A3 A2 A1 A0  0   ← A7 é descartado, 0 entra no LSB
+
+Right Shift (>>1):  A7 A6 A5 A4 A3 A2 A1 A0
+                    0  A7 A6 A5 A4 A3 A2 A1   ← A0 é descartado, 0 entra no MSB
+```
+
+### Equivalência com multiplicação/divisão
+
+| Operação | Equivalente aritmético |
+|----------|----------------------|
+| `A << 1` | A × 2 |
+| `A << 2` | A × 4 |
+| `A >> 1` | A ÷ 2 (parte inteira) |
+| `A >> 2` | A ÷ 4 (parte inteira) |
+
+## Left Shift (LeftShift8bits.dig)
+
+O shift para a esquerda é implementado puramente por **roteamento de fios** — não há portas lógicas além dos splitters que reorganizam as conexões:
+
+- Bit A6 vai para a posição 7 (saída bit 7)
+- Bit A5 vai para a posição 6
+- ...
+- Bit A0 vai para a posição 1
+- Posição 0 (LSB) recebe **constante 0**
+- Bit A7 (MSB original) é descartado
+
+```
+Entrada:  A7  A6  A5  A4  A3  A2  A1  A0
+           ↓   ↓   ↓   ↓   ↓   ↓   ↓   ↓
+Saída:   [A6][A5][A4][A3][A2][A1][A0][ 0]
+           7   6   5   4   3   2   1   0
+```
+
+<CircuitImage
+  src="/img/circuits/LeftShift8bits.png"
+  alt="Circuito do Left Shift de 8 bits"
+  caption="LeftShift8bits.dig — deslocamento lógico para esquerda, apenas roteamento de fios"
+/>
+
+## Right Shift (RightShift8bits.dig)
+
+O shift para a direita é simétrico: o MSB recebe 0, e os bits se deslocam uma posição para a direita:
+
+- Posição 7 (MSB) recebe **constante 0**
+- Bit A7 vai para a posição 6
+- ...
+- Bit A1 vai para a posição 0
+- Bit A0 (LSB original) é descartado
+
+```
+Entrada:  A7  A6  A5  A4  A3  A2  A1  A0
+           ↓   ↓   ↓   ↓   ↓   ↓   ↓   ↓
+Saída:   [ 0][A7][A6][A5][A4][A3][A2][A1]
+           7   6   5   4   3   2   1   0
+```
+
+<CircuitImage
+  src="/img/circuits/RightShift8bits.png"
+  alt="Circuito do Right Shift de 8 bits"
+  caption="RightShift8bits.dig — deslocamento lógico para direita, apenas roteamento de fios"
+/>
+
+## Exemplos
+
+<ExampleBox
+  title="Left Shift: 3 << 1 = 6"
+  rows={[
+    { label: 'A', binary: '0000 0011', decimal: '3' },
+  ]}
+  result={{ label: 'A<<1', binary: '0000 0110', decimal: '6' }}
+  operator="<<"
+/>
+
+<ExampleBox
+  title="Right Shift: 12 >> 1 = 6"
+  rows={[
+    { label: 'A', binary: '0000 1100', decimal: '12' },
+  ]}
+  result={{ label: 'A>>1', binary: '0000 0110', decimal: '6' }}
+  operator=">>"
+/>
+
+:::tip Eficiência
+O shift lógico é a operação mais barata da ALU em termos de hardware — não precisa de nenhuma porta lógica, apenas de roteamento. No Digital, é implementado com splitters que reorganizam as conexões dos bits.
+:::
+
+:::warning Overflow
+No **left shift**, o bit mais significativo (A7) é descartado. Se A7 for 1 antes do shift, há perda de informação — o resultado não é mais equivalente a multiplicar por 2 no conjunto dos inteiros.
+:::

@@ -1,0 +1,105 @@
+---
+id: soma
+title: Soma
+sidebar_position: 1
+description: Soma de 8 bits com somador completo e propagação de carry (ripple carry adder).
+---
+
+import CircuitImage from '@site/src/components/CircuitImage';
+import ExampleBox from '@site/src/components/ExampleBox';
+
+# Soma — Adição de 8 bits
+
+<div className="section-chip">⚙️ Aritmética · SEL = 000</div>
+
+## Teoria
+
+A soma binária funciona exatamente como a soma decimal: somamos bit a bit da direita para a esquerda, propagando o **carry** (vai-um) quando a soma ultrapassa o valor máximo de 1 bit.
+
+A tabela verdade da soma de 1 bit com carry de entrada:
+
+| A | B | Cin | Soma (S) | Carry-out (Cout) |
+|---|---|-----|----------|-----------------|
+| 0 | 0 | 0   | 0        | 0               |
+| 0 | 0 | 1   | 1        | 0               |
+| 0 | 1 | 0   | 1        | 0               |
+| 0 | 1 | 1   | 0        | 1               |
+| 1 | 0 | 0   | 1        | 0               |
+| 1 | 0 | 1   | 0        | 1               |
+| 1 | 1 | 0   | 0        | 1               |
+| 1 | 1 | 1   | 1        | 1               |
+
+As equações lógicas são:
+
+```
+S    = A ⊕ B ⊕ Cin
+Cout = (A · B) + (Cin · (A ⊕ B))
+```
+
+## Somador completo de 1 bit (soma1bit.dig)
+
+O **somador completo** (*Full Adder*) possui 3 entradas (A, B, Cin) e 2 saídas (S, Cout). Ele é a célula base de qualquer somador multi-bit.
+
+- A **saída S** usa duas portas XOR em cascata: `A ⊕ B`, depois `⊕ Cin`
+- O **carry-out** é gerado por uma combinação AND+OR: `(A·B) + ((A⊕B)·Cin)`
+
+<CircuitImage
+  src="/img/circuits/soma1bit.png"
+  alt="Circuito do somador completo de 1 bit"
+  caption="soma1bit.dig — somador completo com entradas A, B, Cin e saídas S, Cout"
+/>
+
+## Somador de 8 bits — Ripple Carry Adder (soma8bits.dig)
+
+Para somar números de 8 bits, encadeamos **8 somadores completos** em série. O carry-out de cada estágio alimenta o carry-in do próximo — daí o nome **ripple carry** (carry se propaga em cascata).
+
+```
+  A7 A6 A5 A4 A3 A2 A1 A0
+  B7 B6 B5 B4 B3 B2 B1 B0
+   │  │  │  │  │  │  │  │
+  ▼  ▼  ▼  ▼  ▼  ▼  ▼  ▼
+┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐
+│FA││FA││FA││FA││FA││FA││FA││FA│  ← 8 Full Adders
+└──┘└──┘└──┘└──┘└──┘└──┘└──┘└──┘
+  │←C│←C│←C│←C│←C│←C│←C│   0 (Cin inicial)
+  │
+ Cout (overflow)
+  S7 S6 S5 S4 S3 S2 S1 S0
+```
+
+- **Cin do bit 0** é sempre 0 (sem carry inicial)
+- **Cout do bit 7** sinaliza overflow (resultado não cabe em 8 bits)
+- A flag `Over` indica se houve estouro de capacidade
+
+<CircuitImage
+  src="/img/circuits/soma8bits.png"
+  alt="Circuito do somador de 8 bits"
+  caption="soma8bits.dig — ripple carry adder com 8 somadores completos encadeados"
+/>
+
+## Exemplo
+
+<ExampleBox
+  title="Soma: 10 + 6 = 16"
+  rows={[
+    { label: 'A', binary: '0000 1010', decimal: '10' },
+    { label: 'B', binary: '0000 0110', decimal: '6' },
+  ]}
+  result={{ label: 'S', binary: '0001 0000', decimal: '16' }}
+  operator="+"
+/>
+
+**Verificação bit a bit (da direita para esquerda):**
+
+```
+  Carry:  0 0 0 0 1 0 0 0
+  A:      0 0 0 0 1 0 1 0
+  B:      0 0 0 0 0 1 1 0
+  ──────────────────────
+  S:      0 0 0 1 0 0 0 0   = 16
+  Cout:   0
+```
+
+:::tip Complexidade
+O ripple carry adder é simples de implementar, mas o delay cresce linearmente com o número de bits — o carry do bit 0 precisa se propagar até o bit 7. Para N=8 bits, há 8 estágios de delay de carry.
+:::

@@ -1,0 +1,165 @@
+---
+id: multiplicacao
+title: Multiplicação
+sidebar_position: 3
+description: Multiplicador array de 8 bits com portas AND, meio-somadores e somadores completos.
+---
+
+import CircuitImage from '@site/src/components/CircuitImage';
+import ExampleBox from '@site/src/components/ExampleBox';
+
+# Multiplicação — Multiplicador Array
+
+<div className="section-chip">⚙️ Aritmética · SEL = 010</div>
+
+## Teoria: Como multiplicar em binário
+
+A multiplicação binária segue a mesma lógica da multiplicação decimal por extenso (método da grade). Multiplicamos cada bit do multiplicador pelo multiplicando, gerando **produtos parciais**, que depois são somados:
+
+```
+        A3 A2 A1 A0       (multiplicando)
+      × B3 B2 B1 B0       (multiplicador)
+      ──────────────
+   A3·B0 A2·B0 A1·B0 A0·B0    ← produto parcial 0 (×B0)
+A3·B1 A2·B1 A1·B1 A0·B1  0    ← produto parcial 1 (×B1, shift 1)
+...
+```
+
+Cada produto `Ai · Bj` é simplesmente uma **porta AND** de 1 bit — pois `1·1=1` e qualquer coisa com `0` dá `0`.
+
+## Proporção de componentes — Por que N²?
+
+Para um multiplicador de **N bits**:
+
+### Portas AND = N²
+
+Para cada par (Ai, Bj) precisamos de uma porta AND:
+- N bits em A × N bits em B = **N × N = N²** portas AND
+- Para N=8: **64 portas AND**
+
+Essas 64 portas geram os 64 produtos parciais individuais que precisam ser somados em uma árvore de somadores.
+
+### Por que Meio-Somadores (Half Adders) na primeira linha?
+
+Na **primeira linha de acumulação** (somar as primeiras duas linhas de produtos parciais), cada posição de bit recebe exatamente **2 entradas**:
+- O bit da linha de produto parcial 0
+- O bit da linha de produto parcial 1
+
+Não há carry-in vindo de um estágio anterior — é a primeira acumulação. Como um meio-somador (*Half Adder*, HA) tem exatamente 2 entradas (A, B) e 2 saídas (S, Cout), ele é suficiente e mais econômico que um somador completo de 3 entradas.
+
+```
+Meio-Somador (HA):
+  Entradas: A, B        (2 entradas)
+  Saídas:   S = A⊕B     (soma)
+            C = A·B     (carry)
+```
+
+**Equações:**
+```
+S = A ⊕ B
+C = A · B
+```
+
+Para N=8: **8 meio-somadores** na primeira linha de acumulação.
+
+### Somadores Completos (Full Adders) = N(N-2)
+
+A partir da segunda linha de acumulação em diante, cada posição recebe **3 entradas**:
+- Bit da próxima linha de produto parcial
+- Soma do estágio anterior
+- Carry do estágio anterior (da coluna à direita)
+
+Isso exige um **somador completo** (FA — *Full Adder*) com 3 entradas.
+
+```
+Somadores Completos = N × (N - 2)
+Para N=8: 8 × (8-2) = 8 × 6 = 48 somadores completos
+```
+
+A fórmula `N(N-2)` vem do fato de que:
+- Há N linhas de produtos parciais a somar
+- A primeira já foi coberta pelos N HAs
+- A última linha (resultado final) não precisa de somadores adicionais
+- Restam `N - 2` linhas de acumulação com N somadores completos cada
+
+## Como HAs e FAs se encadeiam
+
+```
+Produtos parciais (PP):
+PP0: p00 p01 p02 p03 p04 p05 p06 p07
+PP1: p10 p11 p12 p13 p14 p15 p16 p17
+PP2: p20 p21 p22 p23 p24 p25 p26 p27
+...
+PP7: p70 p71 p72 p73 p74 p75 p76 p77
+
+Primeira acumulação (PP0 + PP1) — usa HAs:
+  HA → S0, C0
+  HA → S1, C1
+  ...  (8 HAs no total)
+  O carry C de cada HA alimenta a próxima posição
+
+Segunda acumulação (resultado_anterior + PP2) — usa FAs:
+  FA(S_anterior, PP2[i], C_anterior[i-1]) → S, Cout
+  ...  (8 FAs por linha)
+  O carry Cout alimenta o FA da posição seguinte (ripple carry)
+
+Acumulações 3..6 — continuam com FAs da mesma forma
+
+Resultado final: 16 bits de produto
+```
+
+O encadeamento é em duas dimensões:
+- **Horizontal**: carry se propaga da posição menos significativa para a mais significativa dentro de cada linha de acumulação
+- **Vertical**: a soma de cada linha alimenta a próxima acumulação
+
+<CircuitImage
+  src="/img/circuits/multiplicacao8bits.png"
+  alt="Circuito do multiplicador de 8 bits"
+  caption="multiplicacao8bits.dig — multiplicador array com 64 ANDs, 8 HAs e 48 FAs"
+/>
+
+## Representação gráfica do algoritmo
+
+A imagem abaixo ilustra como os produtos parciais são gerados e acumulados em um multiplicador de 4 bits (para facilitar a visualização) — o mesmo princípio se aplica ao de 8 bits:
+
+<CircuitImage
+  src="/img/circuits/RGmultiplicacao4bitsExemplo.png"
+  alt="Representação gráfica do algoritmo de multiplicação 4 bits"
+  caption="Representação gráfica (RG) — acumulação de produtos parciais em um multiplicador 4×4"
+/>
+
+## Resumo dos componentes para N=8
+
+| Componente | Fórmula | Para N=8 |
+|------------|---------|----------|
+| Portas AND | N² | **64** |
+| Meio-Somadores (HA) | N | **8** |
+| Somadores Completos (FA) | N(N-2) | **48** |
+| **Total de somadores** | N + N(N-2) = N(N-1) | **56** |
+
+## Exemplo
+
+<ExampleBox
+  title="Multiplicação: 3 × 2 = 6"
+  rows={[
+    { label: 'A', binary: '0000 0011', decimal: '3' },
+    { label: 'B', binary: '0000 0010', decimal: '2' },
+  ]}
+  result={{ label: 'A×B', binary: '0000 0000 0000 0110', decimal: '6 (16 bits)' }}
+  operator="×"
+/>
+
+**Produtos parciais para 3 × 2:**
+
+```
+  A = 0000 0011
+  B = 0000 0010
+
+  PP0 (×B0=0):  0000 0000  (A × 0 = 0)
+  PP1 (×B1=1):  0000 0011  (A × 1 = 3, shift ←1)
+  PP2 a PP7:    0000 0000  (B[2..7] = 0)
+
+  Soma: 0 + (0000 0011 << 1)
+      = 0 + 0000 0110
+      = 0000 0110 = 6  ✓
+```
