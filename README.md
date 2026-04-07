@@ -22,7 +22,11 @@ A documentação completa está disponível em:
 
 ## Link para o video do projeto
 
+ALU:
 [https://youtu.be/IBPhQWCaU5M](https://youtu.be/IBPhQWCaU5M)
+
+CPU:
+[https://youtu.be/x0jOUyM4ka0](https://youtu.be/x0jOUyM4ka0)
 
 ## Rodando a documentação localmente
 
