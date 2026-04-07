@@ -11,61 +11,369 @@
           <shapeType>CUSTOM</shapeType>
         </entry>
       </elementAttributes>
-      <pos x="900" y="100"/>
+      <pos x="820" y="-180"/>
     </visualElement>
     <visualElement>
-      <elementName>EEPROMDualPort</elementName>
+      <elementName>ROM</elementName>
+      <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>12</int>
+        </entry>
+        <entry>
+          <string>Data</string>
+          <data>28</data>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>bin</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Counter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="-280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>Operandos</string>
+          <string>Enable</string>
+        </entry>
+      </elementAttributes>
+      <pos x="860" y="-360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CLK</string>
+        </entry>
+      </elementAttributes>
+      <pos x="860" y="-300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>12</string>
         </entry>
         <entry>
-          <string>AddrBits</string>
-          <int>3</int>
+          <string>Output Splitting</string>
+          <string>3,8</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="-80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>S</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="-80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>N</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="-60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>S</string>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="-160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="-240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>N</string>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="-180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>CLK</string>
+        </entry>
+      </elementAttributes>
+      <pos x="880" y="-300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>CLK</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="-260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>CLK</string>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>OUT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="420" y="-60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>EN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="880" y="-360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>EN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="-280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>MQ</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>8</int>
         </entry>
-        <entry>
-          <string>Data</string>
-          <data>a,5,2,2</data>
-        </entry>
-        <entry>
-          <string>intFormat</string>
-          <intFormat>bin</intFormat>
-        </entry>
       </elementAttributes>
-      <pos x="380" y="40"/>
+      <pos x="940" y="-200"/>
     </visualElement>
     <visualElement>
-      <elementName>EEPROMDualPort</elementName>
+      <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>Operações</string>
+          <string>Neg</string>
         </entry>
+      </elementAttributes>
+      <pos x="940" y="-160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
         <entry>
-          <string>AddrBits</string>
-          <int>3</int>
+          <string>Label</string>
+          <string>AC</string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>3</int>
-        </entry>
-        <entry>
-          <string>Data</string>
-          <data>0,1,2,3,4,5,6,7</data>
-        </entry>
-        <entry>
-          <string>intFormat</string>
-          <intFormat>bin</intFormat>
+          <int>8</int>
         </entry>
       </elementAttributes>
-      <pos x="580" y="40"/>
+      <pos x="940" y="-120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Over</string>
+        </entry>
+      </elementAttributes>
+      <pos x="940" y="-80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>OUT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="-280"/>
     </visualElement>
   </visualElements>
-  <wires/>
+  <wires>
+    <wire>
+      <p1 x="420" y="-100"/>
+      <p2 x="440" y="-100"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="-260"/>
+      <p2 x="440" y="-260"/>
+    </wire>
+    <wire>
+      <p1 x="860" y="-360"/>
+      <p2 x="880" y="-360"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="-200"/>
+      <p2 x="940" y="-200"/>
+    </wire>
+    <wire>
+      <p1 x="860" y="-300"/>
+      <p2 x="880" y="-300"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="-140"/>
+      <p2 x="820" y="-140"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="-140"/>
+      <p2 x="920" y="-140"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="-80"/>
+      <p2 x="940" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="-80"/>
+      <p2 x="580" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="-80"/>
+      <p2 x="540" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="-240"/>
+      <p2 x="440" y="-240"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="-180"/>
+      <p2 x="820" y="-180"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="-180"/>
+      <p2 x="900" y="-180"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="-280"/>
+      <p2 x="440" y="-280"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="-280"/>
+      <p2 x="520" y="-280"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="-120"/>
+      <p2 x="940" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="-120"/>
+      <p2 x="900" y="-120"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="-60"/>
+      <p2 x="580" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="420" y="-60"/>
+      <p2 x="440" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="800" y="-160"/>
+      <p2 x="820" y="-160"/>
+    </wire>
+    <wire>
+      <p1 x="880" y="-160"/>
+      <p2 x="940" y="-160"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="-200"/>
+      <p2 x="900" y="-180"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="-120"/>
+      <p2 x="900" y="-80"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="-140"/>
+      <p2 x="920" y="-120"/>
+    </wire>
+  </wires>
   <measurementOrdering/>
 </circuit>
