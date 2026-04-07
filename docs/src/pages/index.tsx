@@ -83,14 +83,14 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title="ALU 8-bit — Documentação"
-      description="Documentação completa da Unidade Lógica e Aritmética de 8 bits e CPU de arquitetura Harvard construídas no simulador Digital"
+      description="Documentação completa da Unidade Lógica e Aritmética de 8 bits e CPU de arquitetura Von Neumann construídas no simulador Digital"
     >
       {/* Hero */}
       <section className="hero-alu">
         <div className="section-chip">⚡ Circuitos Digitais — Módulo 5 · Inteli</div>
-        <h1 className="hero-alu__title">ALU 8-bit & CPU Harvard</h1>
+        <h1 className="hero-alu__title">ALU 8-bit & CPU Von Neumann</h1>
         <p className="hero-alu__subtitle">
-          Unidade Lógica e Aritmética de 8 bits e CPU de arquitetura Harvard construídas do zero no simulador Digital.
+          Unidade Lógica e Aritmética de 8 bits e CPU de arquitetura Von Neumann construídas do zero no simulador Digital.
           Documentação completa de todas as operações — da teoria ao circuito.
         </p>
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -122,7 +122,7 @@ export default function Home(): ReactNode {
           <div className="stat-label">bits de opcode</div>
         </div>
         <div className="stat-item">
-          <div className="stat-value">Harvard</div>
+          <div className="stat-value">Von Neumann</div>
           <div className="stat-label">arquitetura CPU</div>
         </div>
       </div>
@@ -137,7 +137,7 @@ export default function Home(): ReactNode {
         margin: '0',
       }}>
         <span style={{ fontSize: '2rem' }}>🖥️</span>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 700, margin: '0.5rem 0' }}>CPU de Arquitetura Harvard</h2>
+        <h2 style={{ fontSize: '1.5rem', fontWeight: 700, margin: '0.5rem 0' }}>CPU de Arquitetura Von Neumann</h2>
         <p style={{ color: 'var(--ifm-color-content-secondary)', marginBottom: '1rem', maxWidth: '600px', margin: '0 auto 1rem' }}>
           A ALU está integrada em uma CPU completa com PC, registradores, EEPROMs separadas para instruções e dados, Unidade de Controle com Ring Counter e ciclo fetch-decode-execute de 5 etapas.
         </p>

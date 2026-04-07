@@ -29,7 +29,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'doc',
       id: 'cpu',
-      label: '🖥️ CPU Harvard',
+      label: '🖥️ CPU Von Neumann',
     },
     {
       type: 'doc',

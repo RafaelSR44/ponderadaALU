@@ -1,15 +1,15 @@
 ---
 id: cpu
-title: CPU Harvard
+title: CPU Von Neumann
 sidebar_position: 9
-description: Arquitetura e funcionamento da CPU de arquitetura Harvard construída no simulador Digital.
+description: Arquitetura e funcionamento da CPU de arquitetura Von Neumann construída no simulador Digital.
 ---
 
 import CircuitImage from '@site/src/components/CircuitImage';
 
-# CPU — Arquitetura Harvard
+# CPU — Arquitetura Von Neumann
 
-<div className="section-chip">🖥️ Processador · Arquitetura Harvard</div>
+<div className="section-chip">🖥️ Processador · Arquitetura Von Neumann</div>
 
 ## O que é uma CPU?
 
@@ -27,27 +27,28 @@ O ciclo fundamental de uma CPU é chamado de **ciclo de instrução** (ou ciclo 
       └───────────────── PC incrementa ───────────────┘
 ```
 
-## Arquitetura Harvard vs Von Neumann
+## Arquitetura Von Neumann
 
-Esta CPU usa a **Arquitetura Harvard**, que separa fisicamente a memória de dados da memória de instruções em dois barramentos distintos:
+A **Arquitetura Von Neumann** (proposta por John von Neumann em 1945) é o modelo clássico em que **programa e dados compartilham a mesma memória** e o mesmo barramento. A CPU acessa instruções e operandos pelo mesmo caminho de dados.
 
-| Característica | Harvard | Von Neumann |
-|---|---|---|
-| Memória de dados | Separada | Unificada |
-| Memória de instruções | Separada | Unificada |
-| Barramentos | 2 (dados + instruções) | 1 (compartilhado) |
-| Busca simultânea | ✅ Sim | ❌ Não |
-| Complexidade | Maior | Menor |
-| Uso típico | DSPs, microcontroladores | PCs gerais |
+As características principais são:
 
-Na arquitetura Harvard, a CPU pode buscar a próxima instrução **ao mesmo tempo** que acessa dados — eliminando o gargalo do barramento único (chamado de *von Neumann bottleneck*).
+| Característica | Von Neumann |
+|---|---|
+| Memória | Unificada (instruções + dados) |
+| Barramento | Único (compartilhado) |
+| Acesso simultâneo instrução/dado | ❌ Sequencial |
+| Complexidade de hardware | Menor |
+| Uso típico | PCs, servidores, sistemas de propósito geral |
+
+Nesta implementação, as duas EEPROMs (operações e operandos) são **endereçadas pelo mesmo PC** e lidas em ciclos coordenados pela Unidade de Controle — refletindo o modelo Von Neumann onde instrução e dado convivem no mesmo espaço de endereçamento.
 
 ## Componentes da CPU
 
 <CircuitImage
   src="/img/circuits/CPU.png"
-  alt="Diagrama completo da CPU de arquitetura Harvard"
-  caption="CPU.dig — arquitetura Harvard completa com todos os componentes interligados"
+  alt="Diagrama completo da CPU de arquitetura Von Neumann"
+  caption="CPU.dig — arquitetura Von Neumann completa com todos os componentes interligados"
 />
 
 ### 1. PC — Program Counter (Contador de Programa)
@@ -63,9 +64,9 @@ PC[7:0] → endereço → Memória de Operações → opcode
 - **Função:** guardar e incrementar o endereço da instrução atual
 - **Reset:** pode ser zerado pelo botão de reset (ground no preset)
 
-### 2. Memória de Instruções — EEPROMs de Dupla Porta
+### 2. Memória — EEPROMs de Dupla Porta
 
-A CPU possui **duas EEPROMs** separadas, ambas endereçadas pelo PC:
+A CPU possui **duas EEPROMs** endereçadas pelo mesmo PC, representando o espaço de memória Von Neumann:
 
 #### Memória de Operações (Opcode)
 - **Label:** `Operações`
@@ -80,7 +81,7 @@ A CPU possui **duas EEPROMs** separadas, ambas endereçadas pelo PC:
 - Armazena **os valores** a operar em cada passo do programa
 - Dados iniciais pré-carregados: `1, 2, 3, 4, 5, 6, ...`
 
-Essa separação é a essência da **arquitetura Harvard**: as duas memórias são lidas em paralelo no mesmo ciclo de clock.
+Ambas compartilham o mesmo espaço de endereçamento via PC — característica central do modelo Von Neumann.
 
 ### 3. MAR — Memory Address Registers
 
@@ -233,8 +234,4 @@ Endereço | Opcode | Operando | Operação
 
 :::info Clock em tempo real
 O clock da CPU está configurado como `runRealTime: true`, o que significa que no simulador Digital ele oscila em tempo real. Um botão de reset está disponível para reiniciar o estado da CPU (zera o PC e todos os registradores).
-:::
-
-:::tip Arquitetura Harvard na prática
-A separação entre memória de operações (3 bits) e memória de operandos (8 bits) reflete bem a ideia Harvard: as duas memórias têm larguras diferentes adequadas ao seu propósito — 3 bits bastam para 8 opcodes, enquanto 8 bits são necessários para os dados.
 :::
