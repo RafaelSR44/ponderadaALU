@@ -26,7 +26,7 @@ ALU:
 [https://youtu.be/IBPhQWCaU5M](https://youtu.be/IBPhQWCaU5M)
 
 CPU:
-[https://youtu.be/x0jOUyM4ka0](https://youtu.be/x0jOUyM4ka0)
+[https://youtu.be/8BrrsZz3DyQ](https://youtu.be/8BrrsZz3DyQ)
 
 ## Rodando a documentação localmente
 
